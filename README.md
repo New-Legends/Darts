@@ -1,5 +1,5 @@
 # NewLegends_Darts
- NewLengends战队电控代码
+ NewLengends战队飞镖电控代码
 
 TODO:
 1、修改遥控器控制方案
