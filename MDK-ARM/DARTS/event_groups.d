@@ -1,0 +1,15 @@
+darts\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
+darts\event_groups.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+darts\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+darts\event_groups.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+darts\event_groups.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+darts\event_groups.o: ../Inc/FreeRTOSConfig.h
+darts\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+darts\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+darts\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+darts\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+darts\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+darts\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+darts\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+darts\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
+darts\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h

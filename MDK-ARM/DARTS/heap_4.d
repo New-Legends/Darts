@@ -1,0 +1,13 @@
+darts\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
+darts\heap_4.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+darts\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+darts\heap_4.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+darts\heap_4.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+darts\heap_4.o: ../Inc/FreeRTOSConfig.h
+darts\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+darts\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+darts\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+darts\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+darts\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+darts\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+darts\heap_4.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h

@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "usb_device.h": "c",
+        "main.h": "c",
+        "can_receive.h": "c"
+    }
+}

@@ -1,0 +1,14 @@
+darts\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c
+darts\stream_buffer.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+darts\stream_buffer.o: E:\MDK5\ARM\ARMCC\Bin\..\include\string.h
+darts\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+darts\stream_buffer.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+darts\stream_buffer.o: ../Inc/FreeRTOSConfig.h
+darts\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+darts\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+darts\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+darts\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+darts\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+darts\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+darts\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+darts\stream_buffer.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/stream_buffer.h

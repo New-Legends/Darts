@@ -1,0 +1,15 @@
+darts\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/queue.c
+darts\queue.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+darts\queue.o: E:\MDK5\ARM\ARMCC\Bin\..\include\string.h
+darts\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+darts\queue.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+darts\queue.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+darts\queue.o: ../Inc/FreeRTOSConfig.h
+darts\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+darts\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+darts\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+darts\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+darts\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+darts\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+darts\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+darts\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h

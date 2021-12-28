@@ -1,0 +1,74 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.36.0.0
+Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 1 1141430447@qq.com, 1, LIC=KIVNB-24XXD-JPNZQ-NPP2Y-H4EUY-SXSVA
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.36.0.0
+Toolchain Path:  E:\MDK5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.36.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      CMSIS_AGDI.dll V1.33.0.0
+Dialog DLL:      TCM.DLL V1.53.0.0
+ 
+<h2>Project:</h2>
+C:\Users\worker\CLionProjects\Darts\MDK-ARM\DARTS.uvprojx
+Project File Date:  12/26/2021
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\MDK5\ARM\ARMCC\Bin'
+Build target 'DARTS'
+compiling freertos.c...
+compiling shoot_task.c...
+..\application\shoot_task.c(45): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  fp32 shoot_grigger_grade[6] = {0, 5.0f * GRIGGER_SPEED_TO_RADIO, 10.0f * GRIGGER_SPEED_TO_RADIO, 15.0f * GRIGGER_SPEED_TO_RADIO, 28.0f * GRIGGER_SPEED_TO_RADIO, 40.0f * GRIGGER_SPEED_TO_RADIO};
+..\application\shoot_task.c(45): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  fp32 shoot_grigger_grade[6] = {0, 5.0f * GRIGGER_SPEED_TO_RADIO, 10.0f * GRIGGER_SPEED_TO_RADIO, 15.0f * GRIGGER_SPEED_TO_RADIO, 28.0f * GRIGGER_SPEED_TO_RADIO, 40.0f * GRIGGER_SPEED_TO_RADIO};
+..\application\shoot_task.c(45): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  fp32 shoot_grigger_grade[6] = {0, 5.0f * GRIGGER_SPEED_TO_RADIO, 10.0f * GRIGGER_SPEED_TO_RADIO, 15.0f * GRIGGER_SPEED_TO_RADIO, 28.0f * GRIGGER_SPEED_TO_RADIO, 40.0f * GRIGGER_SPEED_TO_RADIO};
+..\application\shoot_task.c(45): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  fp32 shoot_grigger_grade[6] = {0, 5.0f * GRIGGER_SPEED_TO_RADIO, 10.0f * GRIGGER_SPEED_TO_RADIO, 15.0f * GRIGGER_SPEED_TO_RADIO, 28.0f * GRIGGER_SPEED_TO_RADIO, 40.0f * GRIGGER_SPEED_TO_RADIO};
+..\application\shoot_task.c(45): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  fp32 shoot_grigger_grade[6] = {0, 5.0f * GRIGGER_SPEED_TO_RADIO, 10.0f * GRIGGER_SPEED_TO_RADIO, 15.0f * GRIGGER_SPEED_TO_RADIO, 28.0f * GRIGGER_SPEED_TO_RADIO, 40.0f * GRIGGER_SPEED_TO_RADIO};
+..\application\shoot_task.c(417): warning:  #223-D: function "abs" declared implicitly
+      if (shoot_control.shoot_mode == SHOOT_READY_FRIC && (abs(shoot_control.fric_motor[L1].fric_motor_measure->speed_rpm) > abs(shoot_control.fric_motor[L1].require_speed) || abs(shoot_control.fric_motor[R1].fric_motor_measure->speed_rpm) > abs(shoot_control.fric_motor[R1].require_speed)))
+..\application\shoot_task.c: 6 warnings, 0 errors
+linking...
+Program Size: Code=36480 RO-data=596 RW-data=620 ZI-data=52644  
+FromELF: creating hex file...
+"DARTS\DARTS.axf" - 0 Error(s), 6 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.8.0.pack
+                ARM.CMSIS.5.8.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.5.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.15.0.pack
+                Keil.STM32F4xx_DFP.2.15.0
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_DARTS
+  E:\MDK5\packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include
+  E:\MDK5\packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.5.0
+Build Time Elapsed:  00:00:03
+</pre>
+</body>
+</html>
