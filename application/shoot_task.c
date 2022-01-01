@@ -71,6 +71,13 @@ static void trigger_motor_turn_back(void);
   */
 static void shoot_bullet_control(void);
 
+/**
+  * @brief          推杆控制，完成一次发射
+  * @param[in]      void
+  * @retval         void
+  */
+static void push_control(void);
+
 shoot_control_t shoot_control; //射击数据
 
 /**
@@ -90,9 +97,9 @@ void shoot_task(void const *pvParameters)
         shoot_set_mode();        //设置状态机
         shoot_feedback_update(); //更新数据
         shoot_set_control();     //射击任务控制循环
-
+        push_control();
         //CAN发送
-        CAN_cmd_left_shoot(shoot_control.fric_motor[L1].give_current, shoot_control.fric_motor[L2].give_current, shoot_control.fric_motor[L3].give_current, 0);
+        CAN_cmd_left_shoot(shoot_control.fric_motor[L1].give_current, shoot_control.fric_motor[L2].give_current, shoot_control.fric_motor[L3].give_current, shoot_control.given_current);
         CAN_cmd_right_shoot(shoot_control.fric_motor[R1].give_current, shoot_control.fric_motor[R2].give_current, shoot_control.fric_motor[R3].give_current, 0);
         //CAN_cmd_left_shoot(0, 0, shoot_control.fric_motor[L3].give_current, 0);
         vTaskDelay(SHOOT_CONTROL_TIME);
@@ -112,13 +119,14 @@ void shoot_init(void)
     shoot_control.shoot_mode = SHOOT_STOP;
     //遥控器指针
     shoot_control.shoot_rc = get_remote_control_point();
-    //电机指针 拨弹 摩擦轮
-    shoot_control.trigger_motor_measure = get_trigger_motor_measure_point();
 
     for (int i = 0; i < 7; i++)
     {
         shoot_control.motor_state[i] = get_fric_motor_measure_point(i);
     }
+    //电机指针 拨弹 摩擦轮
+    shoot_control.trigger_motor_measure = shoot_control.motor_state[3];
+
     shoot_control.fric_motor[L1].fric_motor_measure = shoot_control.motor_state[0];
     shoot_control.fric_motor[L2].fric_motor_measure = shoot_control.motor_state[1];
     shoot_control.fric_motor[L3].fric_motor_measure = shoot_control.motor_state[2];
@@ -177,7 +185,6 @@ void shoot_init(void)
     shoot_control.set_angle = shoot_control.angle;
     shoot_control.speed = 0.0f;
     shoot_control.speed_set = 0.0f;
-    shoot_control.key_time = 0;
 }
 /**
   * @brief          射击数据更新
@@ -230,8 +237,7 @@ static void shoot_feedback_update(void)
 
     //计算输出轴角度
     shoot_control.angle = (shoot_control.ecd_count * ECD_RANGE + shoot_control.trigger_motor_measure->ecd) * MOTOR_ECD_TO_ANGLE;
-    //微动开关
-    shoot_control.key = BUTTEN_TRIG_PIN;
+
     //鼠标按键
     shoot_control.last_press_l = shoot_control.press_l;
     shoot_control.last_press_r = shoot_control.press_r;
@@ -248,20 +254,6 @@ static void shoot_feedback_update(void)
     else
     {
         shoot_control.press_l_time = 0;
-    }
-
-    //射击开关下档时间计时
-    if (shoot_control.shoot_mode != SHOOT_STOP && switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]))
-    {
-
-        if (shoot_control.rc_s_time < RC_S_LONG_TIME)
-        {
-            shoot_control.rc_s_time++;
-        }
-    }
-    else
-    {
-        shoot_control.rc_s_time = 0;
     }
 }
 
@@ -284,16 +276,8 @@ void shoot_set_control(void)
     }
     else if (shoot_control.shoot_mode == SHOOT_READY_BULLET)
     {
-        if (shoot_control.key == SWITCH_TRIGGER_OFF)
-        {
-            //设置拨弹轮的拨动速度,并开启堵转反转处理
-            shoot_control.trigger_speed_set = shoot_grigger_grade[1] * SHOOT_TRIGGER_DIRECTION;
-        }
-        else
-        {
-            shoot_control.trigger_speed_set = 0.0f;
-            shoot_control.speed_set = 0.0f;
-        }
+        //设置拨弹轮的拨动速度,并开启堵转反转处理
+        shoot_control.trigger_speed_set = shoot_grigger_grade[1] * SHOOT_TRIGGER_DIRECTION;
         shoot_control.trigger_motor_pid.max_out = TRIGGER_READY_PID_MAX_OUT;
         shoot_control.trigger_motor_pid.max_iout = TRIGGER_READY_PID_MAX_IOUT;
     }
@@ -389,94 +373,43 @@ void shoot_set_control(void)
 static void shoot_set_mode(void)
 {
     static int8_t last_s = RC_SW_UP; //记录上一次遥控器按键值
+    if (switch_is_mid((shoot_control.shoot_rc->rc.s[RC_MODE_CHANNEL_RIGHT])))
+    {
 
-    //上拨判断， 一次开启，再次关闭
-    if ((switch_is_up(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && !switch_is_up(last_s) && shoot_control.shoot_mode == SHOOT_STOP))
-    {
-        shoot_control.shoot_mode = SHOOT_READY_FRIC;
-    }
-    else if ((switch_is_up(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && !switch_is_up(last_s) && shoot_control.shoot_mode != SHOOT_STOP))
-    {
-        shoot_control.shoot_mode = SHOOT_STOP;
-    }
-
-    //处于中档， 可以使用键盘开启摩擦轮
-    if (switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && shoot_control.shoot_mode == SHOOT_STOP)
-    {
-        shoot_control.shoot_mode = SHOOT_READY_FRIC;
-    }
-    //处于中档， 可以使用键盘关闭摩擦轮
-    else if (switch_is_mid(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && shoot_control.shoot_mode != SHOOT_STOP)
-    {
-        shoot_control.shoot_mode = SHOOT_STOP;
-    }
-
-    shoot_control.shoot_last_key_v = shoot_control.shoot_rc->key.v;
-
-    //摩擦轮速度达到一定值,才可开启拨盘  为了便于测试,这里至少需要一个摩擦轮电机达到拨盘启动要求就可以开启拨盘
-    if (shoot_control.shoot_mode == SHOOT_READY_FRIC && (abs(shoot_control.fric_motor[L1].fric_motor_measure->speed_rpm) > abs(shoot_control.fric_motor[L1].require_speed) || abs(shoot_control.fric_motor[R1].fric_motor_measure->speed_rpm) > abs(shoot_control.fric_motor[R1].require_speed)))
-    {
-        shoot_control.fric_status = TRUE;
-        shoot_control.shoot_mode = SHOOT_READY_BULLET;
-    }
-    else if (shoot_control.shoot_mode == SHOOT_READY_BULLET && shoot_control.key == SWITCH_TRIGGER_ON)
-    {
-        shoot_control.shoot_mode = SHOOT_READY;
-    }
-    else if (shoot_control.shoot_mode == SHOOT_READY && shoot_control.key == SWITCH_TRIGGER_OFF)
-    {
-        shoot_control.shoot_mode = SHOOT_READY_BULLET;
-    }
-    else if (shoot_control.shoot_mode == SHOOT_READY)
-    {
-        //下拨一次或者鼠标按下一次，进入射击状态
-        if ((switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && !switch_is_down(last_s)))
+        //上拨判断， 一次开启，再次关闭
+        if ((switch_is_up(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && !switch_is_up(last_s) && shoot_control.shoot_mode == SHOOT_STOP))
         {
-            shoot_control.shoot_mode = SHOOT_BULLET;
+            shoot_control.shoot_mode = SHOOT_READY_FRIC;
         }
-    }
-    else if (shoot_control.shoot_mode == SHOOT_DONE)
-    {
-        if (shoot_control.key == SWITCH_TRIGGER_OFF)
+        else if ((switch_is_up(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && !switch_is_up(last_s) && shoot_control.shoot_mode != SHOOT_STOP))
         {
-            shoot_control.key_time++;
-            if (shoot_control.key_time > SHOOT_DONE_KEY_OFF_TIME)
-            {
-                shoot_control.key_time = 0;
-                shoot_control.shoot_mode = SHOOT_READY_BULLET;
-            }
+            shoot_control.shoot_mode = SHOOT_STOP;
         }
-        else
-        {
-            shoot_control.key_time = 0;
-            shoot_control.shoot_mode = SHOOT_BULLET;
-        }
-    }
 
-    if (shoot_control.shoot_mode > SHOOT_READY_FRIC)
-    {
-        //鼠标长按一直进入射击状态 保持连发
-        if ((shoot_control.press_l_time == PRESS_LONG_TIME) || (shoot_control.press_r_time == PRESS_LONG_TIME) || (shoot_control.rc_s_time == RC_S_LONG_TIME))
+        shoot_control.shoot_last_key_v = shoot_control.shoot_rc->key.v;
+
+        //摩擦轮速度达到一定值,才可开启拨盘  为了便于测试,这里至少需要一个摩擦轮电机达到拨盘启动要求就可以开启拨盘
+        // && (abs(shoot_control.fric_motor[L1].fric_motor_measure->speed_rpm) > abs(shoot_control.fric_motor[L1].require_speed) || abs(shoot_control.fric_motor[R1].fric_motor_measure->speed_rpm) > abs(shoot_control.fric_motor[R1].require_speed))
+        if (shoot_control.shoot_mode == SHOOT_READY_FRIC)
         {
-            shoot_control.shoot_mode = SHOOT_CONTINUE_BULLET;
-        }
-        else if (shoot_control.shoot_mode == SHOOT_CONTINUE_BULLET)
-        {
+            shoot_control.fric_status = TRUE;
             shoot_control.shoot_mode = SHOOT_READY_BULLET;
         }
+        else if (shoot_control.shoot_mode == SHOOT_READY_BULLET)
+        {
+            shoot_control.shoot_mode = SHOOT_READY;
+        }
+        else if (shoot_control.shoot_mode == SHOOT_READY)
+        {
+            //下拨一次或者鼠标按下一次，进入射击状态
+            if ((switch_is_down(shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL]) && !switch_is_down(last_s)))
+            {
+                shoot_control.shoot_mode = SHOOT_BULLET;
+            }
+        }
+
+        last_s = shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL];
     }
-
-    //检测两个摩擦轮同时上线，为了便于调试，暂时注释
-    // if(!toe_is_error(REFEREE_TOE) && (shoot_control.heat + SHOOT_HEAT_REMAIN_VALUE > shoot_control.heat_limit))
-    // {
-    //     if(shoot_control.shoot_mode == SHOOT_BULLET || shoot_control.shoot_mode == SHOOT_CONTINUE_BULLET)
-    //     {
-    //         shoot_control.shoot_mode =SHOOT_READY_BULLET;
-    //     }
-    // }
-    //如果云台状态是 无力状态，就关闭射击
-
-    last_s = shoot_control.shoot_rc->rc.s[SHOOT_RC_MODE_CHANNEL];
 }
 
 static void trigger_motor_turn_back(void)
@@ -519,10 +452,6 @@ static void shoot_bullet_control(void)
         shoot_control.set_angle = rad_format(shoot_control.angle + TRIGGER_ONCE);
         shoot_control.move_flag = 1;
     }
-    if (shoot_control.key == SWITCH_TRIGGER_OFF)
-    {
-        shoot_control.shoot_mode = SHOOT_DONE;
-    }
     //到达角度判断
     if (rad_format(shoot_control.set_angle - shoot_control.angle) > 0.05f)
     {
@@ -532,7 +461,31 @@ static void shoot_bullet_control(void)
     }
     else
     {
+        //TODO:这里需要添加推杆控制
         shoot_control.move_flag = 0;
         shoot_control.shoot_mode = SHOOT_READY;
+    }
+}
+
+static void push_control(void)
+{
+    if (switch_is_mid(shoot_control.shoot_rc->rc.s[0]))
+    {
+        if (shoot_control.shoot_rc->rc.ch[1] > 300)
+        {
+            //控制推杆正转
+            HAL_GPIO_WritePin(PUSH_IN1_GPIO_Port, PUSH_IN1_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(PUSH_IN2_GPIO_Port, PUSH_IN2_Pin, GPIO_PIN_SET);
+        }
+        else if (shoot_control.shoot_rc->rc.ch[1] < -300)
+        {
+            //控制推杆反转
+            HAL_GPIO_WritePin(PUSH_IN1_GPIO_Port, PUSH_IN1_Pin, GPIO_PIN_SET);
+            HAL_GPIO_WritePin(PUSH_IN2_GPIO_Port, PUSH_IN2_Pin, GPIO_PIN_RESET);
+        }
+        else {
+            HAL_GPIO_WritePin(PUSH_IN1_GPIO_Port, PUSH_IN1_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(PUSH_IN2_GPIO_Port, PUSH_IN2_Pin, GPIO_PIN_RESET);
+        }
     }
 }

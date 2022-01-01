@@ -22,30 +22,16 @@ Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
 C:\Users\worker\CLionProjects\Darts\MDK-ARM\DARTS.uvprojx
-Project File Date:  12/26/2021
+Project File Date:  12/30/2021
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\MDK5\ARM\ARMCC\Bin'
 Build target 'DARTS'
-compiling freertos.c...
 compiling shoot_task.c...
-..\application\shoot_task.c(45): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  fp32 shoot_grigger_grade[6] = {0, 5.0f * GRIGGER_SPEED_TO_RADIO, 10.0f * GRIGGER_SPEED_TO_RADIO, 15.0f * GRIGGER_SPEED_TO_RADIO, 28.0f * GRIGGER_SPEED_TO_RADIO, 40.0f * GRIGGER_SPEED_TO_RADIO};
-..\application\shoot_task.c(45): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  fp32 shoot_grigger_grade[6] = {0, 5.0f * GRIGGER_SPEED_TO_RADIO, 10.0f * GRIGGER_SPEED_TO_RADIO, 15.0f * GRIGGER_SPEED_TO_RADIO, 28.0f * GRIGGER_SPEED_TO_RADIO, 40.0f * GRIGGER_SPEED_TO_RADIO};
-..\application\shoot_task.c(45): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  fp32 shoot_grigger_grade[6] = {0, 5.0f * GRIGGER_SPEED_TO_RADIO, 10.0f * GRIGGER_SPEED_TO_RADIO, 15.0f * GRIGGER_SPEED_TO_RADIO, 28.0f * GRIGGER_SPEED_TO_RADIO, 40.0f * GRIGGER_SPEED_TO_RADIO};
-..\application\shoot_task.c(45): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  fp32 shoot_grigger_grade[6] = {0, 5.0f * GRIGGER_SPEED_TO_RADIO, 10.0f * GRIGGER_SPEED_TO_RADIO, 15.0f * GRIGGER_SPEED_TO_RADIO, 28.0f * GRIGGER_SPEED_TO_RADIO, 40.0f * GRIGGER_SPEED_TO_RADIO};
-..\application\shoot_task.c(45): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  fp32 shoot_grigger_grade[6] = {0, 5.0f * GRIGGER_SPEED_TO_RADIO, 10.0f * GRIGGER_SPEED_TO_RADIO, 15.0f * GRIGGER_SPEED_TO_RADIO, 28.0f * GRIGGER_SPEED_TO_RADIO, 40.0f * GRIGGER_SPEED_TO_RADIO};
-..\application\shoot_task.c(417): warning:  #223-D: function "abs" declared implicitly
-      if (shoot_control.shoot_mode == SHOOT_READY_FRIC && (abs(shoot_control.fric_motor[L1].fric_motor_measure->speed_rpm) > abs(shoot_control.fric_motor[L1].require_speed) || abs(shoot_control.fric_motor[R1].fric_motor_measure->speed_rpm) > abs(shoot_control.fric_motor[R1].require_speed)))
-..\application\shoot_task.c: 6 warnings, 0 errors
 linking...
-Program Size: Code=36480 RO-data=596 RW-data=620 ZI-data=52644  
+Program Size: Code=34456 RO-data=596 RW-data=620 ZI-data=52548  
 FromELF: creating hex file...
-"DARTS\DARTS.axf" - 0 Error(s), 6 Warning(s).
+"DARTS\DARTS.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -68,7 +54,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.5.0
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

@@ -35,7 +35,8 @@
 
 //射击发射开关通道数据
 #define SHOOT_RC_MODE_CHANNEL       1
-//云台模式使用的开关通道
+#define RC_MODE_CHANNEL_RIGHT       0
+
 
 
 
@@ -74,9 +75,6 @@
 #define CONTINUE_TRIGGER_SPEED      15.0f * SHOOT_TRIGGER_DIRECTION  //15
 #define READY_TRIGGER_SPEED         5.0f * SHOOT_TRIGGER_DIRECTION //5
 
-#define KEY_OFF_JUGUE_TIME          500
-#define SWITCH_TRIGGER_ON           0
-#define SWITCH_TRIGGER_OFF          1
 
 //卡单时间 以及反转时间
 #define BLOCK_TRIGGER_SPEED         1.0f
@@ -118,7 +116,7 @@
 
 #define SHOOT_HEAT_REMAIN_VALUE     80
 //拨盘格数
-#define TRIGGER_GRID_NUM 8     
+#define TRIGGER_GRID_NUM 4     
 #define TRIGGER_ONCE 2*PI/TRIGGER_GRID_NUM
 
 
@@ -130,9 +128,8 @@
 #define R2 4
 #define R3 5
 
-#define FRIC_REFEREE_PARA  0.8            //射速裁判规定数值转实际输入
-#define GRIGGER_SPEED_TO_RADIO  0.8      //射频裁判规定数值转实际输入
-
+#define FRIC_REFEREE_PARA  0.8f            //射速裁判规定数值转实际输入
+#define GRIGGER_SPEED_TO_RADIO  0.8f      //射频裁判规定数值转实际输入
 
 typedef enum
 {
@@ -197,10 +194,6 @@ typedef struct
     uint16_t block_time;
     uint16_t reverse_time;
     bool_t move_flag;
-
-    //微动开关
-    bool_t key;              
-    uint8_t key_time;
 
     const motor_measure_t *motor_state[7];
  

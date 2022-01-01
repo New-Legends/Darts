@@ -26,22 +26,41 @@ void chassis_init(chassis_move_t *chassis_move_init)
 
 void chassis_set_control(chassis_move_t *chassis_move_mode)
 {
+    // 飞镖YAW轴控制
     if (switch_is_up(chassis_move_mode->chassis_RC->rc.s[0]))
     {
-        if (switch_is_up(chassis_move_mode->chassis_RC->rc.s[1])){
+        if (chassis_move_mode->chassis_RC->rc.ch[3] > 300)
+        {
             //控制电机正反转
-            HAL_GPIO_WritePin(DIR_GPIO_Port, DIR_Pin, GPIO_PIN_SET);
+            HAL_GPIO_WritePin(DIR_YAW_GPIO_Port, DIR_YAW_Pin, GPIO_PIN_SET);
+            servo_pwm_set(500, 2);
         }
-        else{
-            HAL_GPIO_WritePin(DIR_GPIO_Port, DIR_Pin, GPIO_PIN_RESET);
+        else if (chassis_move_mode->chassis_RC->rc.ch[3] < -300)
+        {
+            HAL_GPIO_WritePin(DIR_YAW_GPIO_Port, DIR_YAW_Pin, GPIO_PIN_RESET);
+            servo_pwm_set(500, 2);
         }
-        //这里是57两个步进电机的控制
-        servo_pwm_set(500,2);
-        servo_pwm_set(500,3);
+        else
+        {
+            servo_pwm_set(0, 2);
+        }
+
+        //飞镖PITCH轴控制
+        if (chassis_move_mode->chassis_RC->rc.ch[4] > 300)
+        {
+            //控制电机正反转
+            HAL_GPIO_WritePin(DIR_PITCH_GPIO_Port, DIR_PITCH_Pin, GPIO_PIN_SET);
+            servo_pwm_set(500, 3);
+        }
+        else if (chassis_move_mode->chassis_RC->rc.ch[4] < -300)
+        {
+            HAL_GPIO_WritePin(DIR_PITCH_GPIO_Port, DIR_PITCH_Pin, GPIO_PIN_RESET);
+            servo_pwm_set(500, 3);
+        }
+        else
+        {
+            servo_pwm_set(0, 3);
+        }
     }
-    else
-    {
-        servo_pwm_set(0,2);
-        servo_pwm_set(0,3);
-    }
+    
 }
