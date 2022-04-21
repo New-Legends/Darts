@@ -29,13 +29,13 @@ void chassis_set_control(chassis_move_t *chassis_move_mode)
     if (switch_is_up(chassis_move_mode->chassis_RC->rc.s[0]))
     {    
         // 飞镖YAW轴控制
-        if (chassis_move_mode->chassis_RC->rc.ch[3] > 300)
+        if (chassis_move_mode->chassis_RC->rc.ch[2] > 300)
         {
             //控制电机正反转
             HAL_GPIO_WritePin(DIR_YAW_GPIO_Port, DIR_YAW_Pin, GPIO_PIN_SET);
             servo_pwm_set(500, 2);
         }
-        else if (chassis_move_mode->chassis_RC->rc.ch[3] < -300)
+        else if (chassis_move_mode->chassis_RC->rc.ch[2] < -300)
         {
             HAL_GPIO_WritePin(DIR_YAW_GPIO_Port, DIR_YAW_Pin, GPIO_PIN_RESET);
             servo_pwm_set(500, 2);
@@ -46,13 +46,13 @@ void chassis_set_control(chassis_move_t *chassis_move_mode)
         }
 
         //飞镖PITCH轴控制
-        if (chassis_move_mode->chassis_RC->rc.ch[4] > 300)
+        if (chassis_move_mode->chassis_RC->rc.ch[3] > 300)
         {
             //控制电机正反转
             HAL_GPIO_WritePin(DIR_PITCH_GPIO_Port, DIR_PITCH_Pin, GPIO_PIN_SET);
             servo_pwm_set(500, 3);
         }
-        else if (chassis_move_mode->chassis_RC->rc.ch[4] < -300)
+        else if (chassis_move_mode->chassis_RC->rc.ch[3] < -300)
         {
             HAL_GPIO_WritePin(DIR_PITCH_GPIO_Port, DIR_PITCH_Pin, GPIO_PIN_RESET);
             servo_pwm_set(500, 3);
