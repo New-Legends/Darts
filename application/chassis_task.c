@@ -26,41 +26,56 @@ void chassis_init(chassis_move_t *chassis_move_init)
 
 void chassis_set_control(chassis_move_t *chassis_move_mode)
 {
+    //步进电机速度赋值
+    if(chassis_move_mode->chassis_RC->rc.ch[2] >= 0)
+    {
+            chassis_move.ch2_cal = 700 - chassis_move_mode->chassis_RC->rc.ch[2];
+    }
+    else if(chassis_move_mode->chassis_RC->rc.ch[2] < 0)
+    {
+            chassis_move.ch2_cal = 700 + chassis_move_mode->chassis_RC->rc.ch[2];
+    }
+
+    if(chassis_move_mode->chassis_RC->rc.ch[3] >= 0)
+    {
+            chassis_move.ch3_cal = 700 - chassis_move_mode->chassis_RC->rc.ch[3];
+    }
+    else if(chassis_move_mode->chassis_RC->rc.ch[3] < 0)
+    {
+            chassis_move.ch3_cal = 700 + chassis_move_mode->chassis_RC->rc.ch[3];
+    }
+
+
     if (switch_is_up(chassis_move_mode->chassis_RC->rc.s[0]))
     {    
         // 飞镖YAW轴控制
-        if (chassis_move_mode->chassis_RC->rc.ch[2] > 300)
+        if (chassis_move_mode->chassis_RC->rc.ch[2] > 0)
         {
             //控制电机正反转
-            HAL_GPIO_WritePin(DIR_YAW_GPIO_Port, DIR_YAW_Pin, GPIO_PIN_SET);
-            servo_pwm_set(500, 2);
+            HAL_GPIO_WritePin(PUSH_YAW_GPIO_Port, PUSH_YAW_Pin, GPIO_PIN_SET);
+            servo_pwm_set(1, 1);
         }
-        else if (chassis_move_mode->chassis_RC->rc.ch[2] < -300)
+        if (chassis_move_mode->chassis_RC->rc.ch[2] < 0)
         {
-            HAL_GPIO_WritePin(DIR_YAW_GPIO_Port, DIR_YAW_Pin, GPIO_PIN_RESET);
-            servo_pwm_set(500, 2);
+            HAL_GPIO_WritePin(PUSH_YAW_GPIO_Port, PUSH_YAW_Pin, GPIO_PIN_RESET);
+            servo_pwm_set(1, 1);
         }
-        else
-        {
-            servo_pwm_set(0, 2);
-        }
+
 
         //飞镖PITCH轴控制
         if (chassis_move_mode->chassis_RC->rc.ch[3] > 300)
         {
             //控制电机正反转
-            HAL_GPIO_WritePin(DIR_PITCH_GPIO_Port, DIR_PITCH_Pin, GPIO_PIN_SET);
-            servo_pwm_set(500, 3);
+            HAL_GPIO_WritePin(PUSH_PITCH_GPIO_Port, PUSH_PITCH_Pin, GPIO_PIN_SET);
+            servo_pwm_set(1, 2);
         }
-        else if (chassis_move_mode->chassis_RC->rc.ch[3] < -300)
+        if (chassis_move_mode->chassis_RC->rc.ch[3] < -300)
         {
-            HAL_GPIO_WritePin(DIR_PITCH_GPIO_Port, DIR_PITCH_Pin, GPIO_PIN_RESET);
-            servo_pwm_set(500, 3);
-        }
-        else
-        {
-            servo_pwm_set(0, 3);
+            HAL_GPIO_WritePin(PUSH_PITCH_GPIO_Port, PUSH_PITCH_Pin, GPIO_PIN_RESET);
+            servo_pwm_set(1, 2);
         }
     }
     
 }
+
+

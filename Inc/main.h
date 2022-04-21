@@ -98,10 +98,10 @@ void Error_Handler(void);
 #define DIR_PITCH_GPIO_Port GPIOB
 #define CS1_GYRO_Pin GPIO_PIN_0
 #define CS1_GYRO_GPIO_Port GPIOB
-#define PUSH_IN1_Pin GPIO_PIN_14
-#define PUSH_IN1_GPIO_Port GPIOB
-#define PUSH_IN2_Pin GPIO_PIN_15
-#define PUSH_IN2_GPIO_Port GPIOB
+#define PUSH_YAW_Pin GPIO_PIN_14
+#define PUSH_YAW_GPIO_Port GPIOB
+#define PUSH_PITCH_Pin GPIO_PIN_15
+#define PUSH_PITCH_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

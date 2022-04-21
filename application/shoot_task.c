@@ -76,7 +76,6 @@ static void shoot_bullet_control(void);
   * @param[in]      void
   * @retval         void
   */
-static void push_control(void);
 
 shoot_control_t shoot_control; //射击数据
 
@@ -97,7 +96,6 @@ void shoot_task(void const *pvParameters)
         shoot_set_mode();        //设置状态机
         shoot_feedback_update(); //更新数据
         shoot_set_control();     //射击任务控制循环
-        push_control();
         //CAN发送
         CAN_cmd_left_shoot(shoot_control.fric_motor[L1].give_current, shoot_control.fric_motor[L2].give_current, shoot_control.fric_motor[L3].give_current, shoot_control.given_current);
         CAN_cmd_right_shoot(shoot_control.fric_motor[R1].give_current, shoot_control.fric_motor[R2].give_current, shoot_control.fric_motor[R3].give_current, 0);
@@ -464,28 +462,5 @@ static void shoot_bullet_control(void)
         //TODO:这里需要添加推杆控制
         shoot_control.move_flag = 0;
         shoot_control.shoot_mode = SHOOT_READY;
-    }
-}
-
-static void push_control(void)
-{
-    if (switch_is_mid(shoot_control.shoot_rc->rc.s[0]))
-    {
-        if (shoot_control.shoot_rc->rc.ch[1] > 300)
-        {
-            //控制推杆正转
-            HAL_GPIO_WritePin(PUSH_IN1_GPIO_Port, PUSH_IN1_Pin, GPIO_PIN_RESET);
-            HAL_GPIO_WritePin(PUSH_IN2_GPIO_Port, PUSH_IN2_Pin, GPIO_PIN_SET);
-        }
-        else if (shoot_control.shoot_rc->rc.ch[1] < -300)
-        {
-            //控制推杆反转
-            HAL_GPIO_WritePin(PUSH_IN1_GPIO_Port, PUSH_IN1_Pin, GPIO_PIN_SET);
-            HAL_GPIO_WritePin(PUSH_IN2_GPIO_Port, PUSH_IN2_Pin, GPIO_PIN_RESET);
-        }
-        else {
-            HAL_GPIO_WritePin(PUSH_IN1_GPIO_Port, PUSH_IN1_Pin, GPIO_PIN_RESET);
-            HAL_GPIO_WritePin(PUSH_IN2_GPIO_Port, PUSH_IN2_Pin, GPIO_PIN_RESET);
-        }
     }
 }
