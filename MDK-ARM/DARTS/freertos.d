@@ -1,7 +1,7 @@
 darts\freertos.o: ../Src/freertos.c
 darts\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-darts\freertos.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
-darts\freertos.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+darts\freertos.o: D:\keil\ARM\ARMCC\Bin\..\include\stddef.h
+darts\freertos.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
 darts\freertos.o: ../Inc/FreeRTOSConfig.h
 darts\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 darts\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

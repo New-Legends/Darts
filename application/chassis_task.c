@@ -26,9 +26,9 @@ void chassis_init(chassis_move_t *chassis_move_init)
 
 void chassis_set_control(chassis_move_t *chassis_move_mode)
 {
-    // 飞镖YAW轴控制
     if (switch_is_up(chassis_move_mode->chassis_RC->rc.s[0]))
-    {
+    {    
+        // 飞镖YAW轴控制
         if (chassis_move_mode->chassis_RC->rc.ch[3] > 300)
         {
             //控制电机正反转

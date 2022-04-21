@@ -1,9 +1,9 @@
 darts\fifo.o: ..\components\support\fifo.c
 darts\fifo.o: ..\components\support\fifo.h
-darts\fifo.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
-darts\fifo.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
-darts\fifo.o: E:\MDK5\ARM\ARMCC\Bin\..\include\string.h
-darts\fifo.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+darts\fifo.o: D:\keil\ARM\ARMCC\Bin\..\include\stdio.h
+darts\fifo.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
+darts\fifo.o: D:\keil\ARM\ARMCC\Bin\..\include\string.h
+darts\fifo.o: D:\keil\ARM\ARMCC\Bin\..\include\stdlib.h
 darts\fifo.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 darts\fifo.o: ../Inc/stm32f4xx_hal_conf.h
 darts\fifo.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h
@@ -18,7 +18,7 @@ darts\fifo.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 darts\fifo.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 darts\fifo.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 darts\fifo.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-darts\fifo.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+darts\fifo.o: D:\keil\ARM\ARMCC\Bin\..\include\stddef.h
 darts\fifo.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 darts\fifo.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h
 darts\fifo.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h

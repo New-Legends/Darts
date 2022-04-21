@@ -3,8 +3,8 @@ darts\can_receive.o: ..\application\CAN_receive.h
 darts\can_receive.o: ..\application\struct_typedef.h
 darts\can_receive.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 darts\can_receive.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-darts\can_receive.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
-darts\can_receive.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+darts\can_receive.o: D:\keil\ARM\ARMCC\Bin\..\include\stddef.h
+darts\can_receive.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
 darts\can_receive.o: ../Inc/FreeRTOSConfig.h
 darts\can_receive.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 darts\can_receive.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

@@ -1,7 +1,7 @@
 darts\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/croutine.c
 darts\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-darts\croutine.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
-darts\croutine.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+darts\croutine.o: D:\keil\ARM\ARMCC\Bin\..\include\stddef.h
+darts\croutine.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
 darts\croutine.o: ../Inc/FreeRTOSConfig.h
 darts\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 darts\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

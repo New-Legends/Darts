@@ -1,11 +1,11 @@
 /**
   ****************************(C) COPYRIGHT 2019 DJI****************************
   * @file       shoot.c/h
-  * @brief      Éä»÷¹¦ÄÜ¡£
+  * @brief      å°„å‡»åŠŸèƒ½ã€‚
   * @note       
   * @history
   *  Version    Date            Author          Modification
-  *  V1.0.0     Dec-26-2018     RM              1. Íê³É
+  *  V1.0.0     Dec-26-2018     RM              1. å®Œæˆ
   *
   @verbatim
   ==============================================================================
@@ -23,60 +23,60 @@
 #include "CAN_receive.h"
 #include "user_lib.h"
 
-//ÈÎÎñ³õÊ¼»¯ ¿ÕÏĞÒ»¶ÎÊ±¼ä
+//ä»»åŠ¡åˆå§‹åŒ– ç©ºé—²ä¸€æ®µæ—¶é—´
 #define SHOOT_TASK_INIT_TIME 201 
 #define SHOOT_CONTROL_TIME 1
 
-#define TRIGGER_CCW 1 //²¦ÅÌË³Ê±Õë
-#define TRIGGER_CW -1 //²¦ÅÌÄæÊ±Õë
+#define TRIGGER_CCW 1 //æ‹¨ç›˜é¡ºæ—¶é’ˆ
+#define TRIGGER_CW -1 //æ‹¨ç›˜é€†æ—¶é’ˆ
 
 
 #define SHOOT_TRIGGER_DIRECTION TRIGGER_CW
 
-//Éä»÷·¢Éä¿ª¹ØÍ¨µÀÊı¾İ
+//å°„å‡»å‘å°„å¼€å…³é€šé“æ•°æ®
 #define SHOOT_RC_MODE_CHANNEL       1
 #define RC_MODE_CHANNEL_RIGHT       0
 
 
 
 
-//¿ªÆôÄ¦²ÁÂÖµÄĞ±ÆÂ
+//å¼€å¯æ‘©æ“¦è½®çš„æ–œå¡
 #define SHOOT_FRIC_ADD_VALUE    0.1f
 
-//Éä»÷Ä¦²ÁÂÖ¼¤¹â´ò¿ª ¹Ø±Õ
+//å°„å‡»æ‘©æ“¦è½®æ¿€å…‰æ‰“å¼€ å…³é—­
 #define SHOOT_KEYBOARD           KEY_PRESSED_OFFSET_G
 
-//Éä»÷Íê³Éºó ×Óµ¯µ¯³öÈ¥ºó£¬ÅĞ¶ÏÊ±¼ä£¬ÒÔ·ÀÎó´¥·¢
+//å°„å‡»å®Œæˆå å­å¼¹å¼¹å‡ºå»åï¼Œåˆ¤æ–­æ—¶é—´ï¼Œä»¥é˜²è¯¯è§¦å‘
 #define SHOOT_DONE_KEY_OFF_TIME     15
-//Êó±ê³¤°´ÅĞ¶Ï
+//é¼ æ ‡é•¿æŒ‰åˆ¤æ–­
 #define PRESS_LONG_TIME             400
-//Ä¦²ÁÂÖ¿ªÆô°´¼üÑÓÊ±
+//æ‘©æ“¦è½®å¼€å¯æŒ‰é”®å»¶æ—¶
 #define KEY_FRIC_LONG_TIME             200
 
 
-//Ò£¿ØÆ÷Éä»÷¿ª¹Ø´òÏÂµµÒ»¶ÎÊ±¼äºó Á¬Ğø·¢Éä×Óµ¯ ÓÃÓÚÇåµ¥
+//é¥æ§å™¨å°„å‡»å¼€å…³æ‰“ä¸‹æ¡£ä¸€æ®µæ—¶é—´å è¿ç»­å‘å°„å­å¼¹ ç”¨äºæ¸…å•
 #define RC_S_LONG_TIME              2000
-//Ä¦²ÁÂÖ¸ßËÙ ¼ÓËÙ Ê±¼ä
+//æ‘©æ“¦è½®é«˜é€Ÿ åŠ é€Ÿ æ—¶é—´
 #define UP_ADD_TIME                 80
-//µç»ú·´À¡ÂëÅÌÖµ·¶Î§
+//ç”µæœºåé¦ˆç ç›˜å€¼èŒƒå›´
 #define HALF_ECD_RANGE              4096
 #define ECD_RANGE                   8191
 
 
-//²¦ÅÌµç»úrmp ±ä»¯³É Ğı×ªËÙ¶ÈµÄ±ÈÀı
+//æ‹¨ç›˜ç”µæœºrmp å˜åŒ–æˆ æ—‹è½¬é€Ÿåº¦çš„æ¯”ä¾‹
 #define MOTOR_RPM_TO_SPEED          0.00290888208665721596153948461415f 
 #define MOTOR_ECD_TO_ANGLE          0.000021305288720633905968306772076277f * SHOOT_TRIGGER_DIRECTION
 #define FULL_COUNT                  18
 
 
 
-//²¦µ¯ËÙ¶È
+//æ‹¨å¼¹é€Ÿåº¦
 #define TRIGGER_SPEED               10.0f * SHOOT_TRIGGER_DIRECTION   //10
 #define CONTINUE_TRIGGER_SPEED      15.0f * SHOOT_TRIGGER_DIRECTION  //15
 #define READY_TRIGGER_SPEED         5.0f * SHOOT_TRIGGER_DIRECTION //5
 
 
-//¿¨µ¥Ê±¼ä ÒÔ¼°·´×ªÊ±¼ä
+//å¡å•æ—¶é—´ ä»¥åŠåè½¬æ—¶é—´
 #define BLOCK_TRIGGER_SPEED         1.0f
 #define BLOCK_TIME                  700
 #define REVERSE_TIME                500
@@ -86,7 +86,7 @@
 #define PI_TEN                      0.314f
 
 
-//²¦µ¯ÂÖµç»úPID
+//æ‹¨å¼¹è½®ç”µæœºPID
 #define TRIGGER_ANGLE_PID_KP        1000.0f  //800
 #define TRIGGER_ANGLE_PID_KI        2.0f  //0.5
 #define TRIGGER_ANGLE_PID_KD        5.0f
@@ -97,12 +97,12 @@
 #define TRIGGER_READY_PID_MAX_OUT   10000.0f
 #define TRIGGER_READY_PID_MAX_IOUT  200.0f
 
-//Ä¦²ÁÂÖµç»úrmp ±ä»¯³É Ğı×ªËÙ¶ÈµÄ±ÈÀı
+//æ‘©æ“¦è½®ç”µæœºrmp å˜åŒ–æˆ æ—‹è½¬é€Ÿåº¦çš„æ¯”ä¾‹
 #define FRIC_RPM_TO_SPEED           0.000415809748903494517209f*5
 
 
 
-//Ä¦²ÁÂÖµç»úPID
+//æ‘©æ“¦è½®ç”µæœºPID
 #define FRIC_SPEED_PID_KP        1800.0f
 #define FRIC_SPEED_PID_KI        0.5f
 #define FRIC_SPEED_PID_KD        2.0f
@@ -115,7 +115,7 @@
 #define FRIC_REQUIRE_SPEED_RMP 500.0f
 
 #define SHOOT_HEAT_REMAIN_VALUE     80
-//²¦ÅÌ¸ñÊı
+//æ‹¨ç›˜æ ¼æ•°
 #define TRIGGER_GRID_NUM 4     
 #define TRIGGER_ONCE 2*PI/TRIGGER_GRID_NUM
 
@@ -128,17 +128,17 @@
 #define R2 4
 #define R3 5
 
-#define FRIC_REFEREE_PARA  0.8f            //ÉäËÙ²ÃÅĞ¹æ¶¨ÊıÖµ×ªÊµ¼ÊÊäÈë
-#define GRIGGER_SPEED_TO_RADIO  0.8f      //ÉäÆµ²ÃÅĞ¹æ¶¨ÊıÖµ×ªÊµ¼ÊÊäÈë
+#define FRIC_REFEREE_PARA  0.8f            //å°„é€Ÿè£åˆ¤è§„å®šæ•°å€¼è½¬å®é™…è¾“å…¥
+#define GRIGGER_SPEED_TO_RADIO  0.8f      //å°„é¢‘è£åˆ¤è§„å®šæ•°å€¼è½¬å®é™…è¾“å…¥
 
 typedef enum
 {
-    SHOOT_STOP = 0,    //Í£Ö¹·¢Éä½á¹¹
-    SHOOT_READY_FRIC,  //Ä¦²ÁÂÖ×¼±¸ÖĞ
-    SHOOT_READY_BULLET,//²¦ÅÌ×¼±¸ÖĞ,Ä¦²ÁÂÖÒÑ´ïµ½×ªËÙ
-    SHOOT_READY,       //Õû¸ö·¢Éä»ú¹¹×¼±¸Íê³É
-    SHOOT_BULLET,      //µ¥·¢
-    SHOOT_CONTINUE_BULLET,//Á¬·¢
+    SHOOT_STOP = 0,    //åœæ­¢å‘å°„ç»“æ„
+    SHOOT_READY_FRIC,  //æ‘©æ“¦è½®å‡†å¤‡ä¸­
+    SHOOT_READY_BULLET,//æ‹¨ç›˜å‡†å¤‡ä¸­,æ‘©æ“¦è½®å·²è¾¾åˆ°è½¬é€Ÿ
+    SHOOT_READY,       //æ•´ä¸ªå‘å°„æœºæ„å‡†å¤‡å®Œæˆ
+    SHOOT_BULLET,      //å•å‘
+    SHOOT_CONTINUE_BULLET,//è¿å‘
     SHOOT_DONE,      
 } shoot_mode_e;
 
@@ -150,9 +150,9 @@ typedef struct
   fp32 speed_set;
   int16_t give_current;
 
-  fp32 max_speed;  //Ä¦²ÁÂÖĞı×ª×î´óËÙ¶È
-  fp32 min_speed;  //Ä¦²ÁÂÖĞı×ª×îĞ¡ËÙ¶È
-  fp32 require_speed; //ÔÊĞí²¦ÅÌ¿ªÆôµÄ×îµÍËÙ¶È
+  fp32 max_speed;  //æ‘©æ“¦è½®æ—‹è½¬æœ€å¤§é€Ÿåº¦
+  fp32 min_speed;  //æ‘©æ“¦è½®æ—‹è½¬æœ€å°é€Ÿåº¦
+  fp32 require_speed; //å…è®¸æ‹¨ç›˜å¼€å¯çš„æœ€ä½é€Ÿåº¦
 
 } fric_motor_t;
 
@@ -162,7 +162,7 @@ typedef struct
     const RC_ctrl_t *shoot_rc;
     uint16_t shoot_last_key_v;
 
-    //²¦µ¯µç»úÊı¾İ
+    //æ‹¨å¼¹ç”µæœºæ•°æ®
     const motor_measure_t *trigger_motor_measure;
     pid_type_def trigger_motor_pid;
     fp32 trigger_speed_set;
@@ -173,16 +173,16 @@ typedef struct
     int16_t given_current;
     int8_t ecd_count;
 
-    //Ä¦²ÁÂÖµç»úÊı¾İ
+    //æ‘©æ“¦è½®ç”µæœºæ•°æ®
     fric_motor_t fric_motor[6]; 
     pid_type_def fric_speed_pid[6];
 
-    //Ä¦²ÁÂÖµç»ú µ¯²Ö¶æ»ú ÏŞÎ»¿ª¹Ø ×´Ì¬
+    //æ‘©æ“¦è½®ç”µæœº å¼¹ä»“èˆµæœº é™ä½å¼€å…³ çŠ¶æ€
     bool_t fric_status;
     bool_t magazine_status;
     bool_t limit_switch_status;
   
-    //Êó±ê×´Ì¬
+    //é¼ æ ‡çŠ¶æ€
     bool_t press_l;
     bool_t press_r;
     bool_t last_press_l;
@@ -200,13 +200,13 @@ typedef struct
 } shoot_control_t;
 
 
-extern shoot_control_t shoot_control;          //Éä»÷Êı¾İ
+extern shoot_control_t shoot_control;          //å°„å‡»æ•°æ®
 
-//Ä¦²ÁÂÖ°´¼ü¿ØÖÆ
+//æ‘©æ“¦è½®æŒ‰é”®æ§åˆ¶
 #define KEY_FRIC (shoot_control.shoot_rc->key.v  & KEY_PRESSED_OFFSET_G) && !(shoot_control.shoot_last_key_v & KEY_PRESSED_OFFSET_G) 
 
 
-//ÓÉÓÚÉä»÷ºÍÔÆÌ¨Ê¹ÓÃÍ¬Ò»¸öcanµÄid¹ÊÒ²Éä»÷ÈÎÎñÔÚÔÆÌ¨ÈÎÎñÖĞÖ´ĞĞ
+//ç”±äºå°„å‡»å’Œäº‘å°ä½¿ç”¨åŒä¸€ä¸ªcançš„idæ•…ä¹Ÿå°„å‡»ä»»åŠ¡åœ¨äº‘å°ä»»åŠ¡ä¸­æ‰§è¡Œ
 extern void shoot_task(void const *pvParameters);
 extern void shoot_init(void);
 extern void shoot_set_control(void);
