@@ -89,8 +89,8 @@
 
 //拨弹卡弹时间 以及反转时间
 #define BLOCK_TRIGGER_SPEED         1.0f
-#define BLOCK_TIME                  700
-#define REVERSE_TIME                500
+#define BLOCK_TIME                  7000
+#define REVERSE_TIME                5000
 #define REVERSE_SPEED_LIMIT         13.0f
 
 #define PI_FOUR                     0.78539816339744830961566084581988f
@@ -99,7 +99,7 @@
 
 
 //拨弹轮电机PID
-#define TRIGGER_ANGLE_PID_KP        8000.0f  //800
+#define TRIGGER_ANGLE_PID_KP        800.0f  //800
 #define TRIGGER_ANGLE_PID_KI        0.0f  //0.5
 #define TRIGGER_ANGLE_PID_KD        0.0f
 
@@ -111,7 +111,7 @@
 
 
 //推弹轮电机PID
-#define PULL_ANGLE_PID_KP        0.0f  //800
+#define PULL_ANGLE_PID_KP        1.0f  //800
 #define PULL_ANGLE_PID_KI        0.0f  //0.5
 #define PULL_ANGLE_PID_KD        0.0f
 
@@ -235,6 +235,7 @@ typedef struct
     const motor_measure_t *motor_state[8];
  
 } shoot_control_t;
+
 
 
 extern shoot_control_t shoot_control;          //射击数据

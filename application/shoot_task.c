@@ -28,7 +28,6 @@
 #include "CAN_receive.h"
 #include "pid.h"
 
-chassis_move_t *chassis_move_Mode;
 
 #define shoot_fric1_on(pwm) fric1_on((pwm)) //摩擦轮1pwm宏定义
 #define shoot_fric2_on(pwm) fric2_on((pwm)) //摩擦轮2pwm宏定义
@@ -326,7 +325,7 @@ void shoot_set_control(void)
         shoot_laser_on(); //激光开启
 
         //推弹电机转速赋值
-        shoot_control.pull_speed_set = chassis_move_Mode->chassis_RC->rc.ch[0];
+        shoot_control.pull_speed_set = shoot_control.shoot_rc->rc.ch[1] * 5;
         //设置摩擦轮转速
         shoot_control.fric_motor[L1].speed_set = shoot_fric_grade[3];
         shoot_control.fric_motor[R1].speed_set = -shoot_fric_grade[3];
@@ -463,11 +462,11 @@ static void shoot_bullet_control(void)
     //每次拨动的角度
     if (shoot_control.move_flag == 0)
     {
-        shoot_control.trigger_set_angle = rad_format(shoot_control.trigger_set_angle + TRIGGER_ONCE);
+        shoot_control.trigger_set_angle = rad_format(shoot_control.trigger_angle + TRIGGER_ONCE);
         shoot_control.move_flag = 1;
     }
     //到达角度判断
-    if (rad_format(shoot_control.trigger_set_angle - shoot_control.trigger_set_angle) > 0.05f)
+    if (rad_format(shoot_control.trigger_set_angle - shoot_control.trigger_angle) > 0.05f)
     {
         //没到达一直设置旋转速度
         shoot_control.trigger_speed_set = shoot_grigger_grade[1] * SHOOT_TRIGGER_DIRECTION;
