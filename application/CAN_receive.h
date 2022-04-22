@@ -3,7 +3,7 @@
   * @file       can_receive.c/h
   * @brief      there is CAN interrupt function  to receive motor data,
   *             and CAN send function to send motor current to control motor.
-  *             ÕâÀïÊÇCANÖÐ¶Ï½ÓÊÕº¯Êý£¬½ÓÊÕµç»úÊý¾Ý,CAN·¢ËÍº¯Êý·¢ËÍµç»úµçÁ÷¿ØÖÆµç»ú.
+  *             ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CANï¿½Ð¶Ï½ï¿½ï¿½Õºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,CANï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½.
   * @note       
   * @history
   *  Version    Date            Author          Modification
@@ -29,17 +29,18 @@
 /* CAN send and receive ID */
 typedef enum
 {
-  //×ó·¢Éäµç»ú½ÓÊÕID
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
   CAN_LEFT_SHOOT_ALL_ID = 0x200,
   CAN_LEFT_3508_M1_ID = 0x201,
   CAN_LEFT_3508_M2_ID = 0x202,
   CAN_LEFT_3508_M3_ID = 0x203,
-  CAN_TRIGGER_MOTOR_ID = 0x204,
-  //ÓÒ·¢Éäµç»ú½ÓÊÜID
+  CAN_TRIGGER_2006_ID = 0x204,
+  //ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ID
   CAN_RIGHT_SHOOT_ALL_ID = 0x1FF,
   CAN_RIGHT_3508_M4_ID = 0x205,
   CAN_RIGHT_3508_M5_ID = 0x206,
   CAN_RIGHT_3508_M6_ID = 0x207,
+  CAN_SPIN_3508_ID = 0x208,
 } can_msg_id_e;
 
 //rm motor data
@@ -54,11 +55,11 @@ typedef struct
 
 
 /**
-  * @brief          ·¢ËÍµç»ú¿ØÖÆµçÁ÷(0x205,0x206,0x207,0x208)
-  * @param[in]      left_fric: (0x205) 3508µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-16384,16384]
-  * @param[in]      right_fric: (0x206) 3508µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-16384,16384]
-  * @param[in]      trigger: (0x207) 2006µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-10000,10000]
-  * @param[in]      ±£Áô: (0x208) ±£Áô£¬µç»ú¿ØÖÆµçÁ÷
+  * @brief          ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½(0x205,0x206,0x207,0x208)
+  * @param[in]      left_fric: (0x205) 3508ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½, ï¿½ï¿½Î§ [-16384,16384]
+  * @param[in]      right_fric: (0x206) 3508ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½, ï¿½ï¿½Î§ [-16384,16384]
+  * @param[in]      trigger: (0x207) 2006ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½, ï¿½ï¿½Î§ [-10000,10000]
+  * @param[in]      ï¿½ï¿½ï¿½ï¿½: (0x208) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½
   * @retval         none
   */
 extern void CAN_cmd_left_shoot(int16_t motor1, int16_t motor2, int16_t motor3, int16_t trigger);
@@ -68,9 +69,9 @@ extern void CAN_cmd_right_shoot(int16_t motor1, int16_t motor2, int16_t motor3, 
 extern const motor_measure_t *get_trigger_motor_measure_point(void);
 
 /**
-  * @brief          ·µ»ØÄ¦²ÁÂÖµç»ú 3508µç»úÊý¾ÝÖ¸Õë
+  * @brief          ï¿½ï¿½ï¿½ï¿½Ä¦ï¿½ï¿½ï¿½Öµï¿½ï¿½ 3508ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
   * @param[in]      none
-  * @retval         µç»úÊý¾ÝÖ¸Õë
+  * @retval         ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
   */
 extern const motor_measure_t *get_left_fric_motor_measure_point(uint8_t i);
 

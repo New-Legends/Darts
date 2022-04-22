@@ -1,28 +1,25 @@
 #include "bsp_servo_pwm.h"
 #include "main.h"
 
-extern TIM_HandleTypeDef htim1;
-extern TIM_HandleTypeDef htim8;
+int8_t cnt;
 
-void servo_pwm_set(uint16_t pwm, uint8_t i)
+void servo_speed_set(uint16_t speed, uint8_t i)
 {
     switch(i)
     {
-        case 0:
-        {
-            __HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_2, pwm);
-        }break;
         case 1:
         {
-            __HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1, pwm);
+            HAL_GPIO_WritePin(DIR_YAW_GPIO_Port, DIR_YAW_Pin, GPIO_PIN_SET);
+            delay_us(speed);
+            HAL_GPIO_WritePin(DIR_YAW_GPIO_Port, DIR_YAW_Pin, GPIO_PIN_RESET);
+            delay_us(speed);
         }break;
         case 2:
         {
-            __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_4, pwm);
-        }break;
-        case 3:
-        {
-            __HAL_TIM_SetCompare(&htim1, TIM_CHANNEL_3, pwm);
+            HAL_GPIO_WritePin(DIR_PITCH_GPIO_Port, DIR_PITCH_Pin, GPIO_PIN_SET);
+            delay_us(speed);
+            HAL_GPIO_WritePin(DIR_PITCH_GPIO_Port, DIR_PITCH_Pin, GPIO_PIN_RESET);
+            delay_us(speed);
         }break;
     }
 }

@@ -29,20 +29,20 @@ void chassis_set_control(chassis_move_t *chassis_move_mode)
     //步进电机速度赋值
     if(chassis_move_mode->chassis_RC->rc.ch[2] >= 0)
     {
-            chassis_move.ch2_cal = 700 - chassis_move_mode->chassis_RC->rc.ch[2];
+            chassis_move.ch2_cal = 670 - chassis_move_mode->chassis_RC->rc.ch[2];
     }
     else if(chassis_move_mode->chassis_RC->rc.ch[2] < 0)
     {
-            chassis_move.ch2_cal = 700 + chassis_move_mode->chassis_RC->rc.ch[2];
+            chassis_move.ch2_cal = 670 + chassis_move_mode->chassis_RC->rc.ch[2];
     }
 
     if(chassis_move_mode->chassis_RC->rc.ch[3] >= 0)
     {
-            chassis_move.ch3_cal = 700 - chassis_move_mode->chassis_RC->rc.ch[3];
+            chassis_move.ch3_cal = 670 - chassis_move_mode->chassis_RC->rc.ch[3];
     }
     else if(chassis_move_mode->chassis_RC->rc.ch[3] < 0)
     {
-            chassis_move.ch3_cal = 700 + chassis_move_mode->chassis_RC->rc.ch[3];
+            chassis_move.ch3_cal = 670 + chassis_move_mode->chassis_RC->rc.ch[3];
     }
 
 
@@ -53,12 +53,12 @@ void chassis_set_control(chassis_move_t *chassis_move_mode)
         {
             //控制电机正反转
             HAL_GPIO_WritePin(PUSH_YAW_GPIO_Port, PUSH_YAW_Pin, GPIO_PIN_SET);
-            servo_pwm_set(100, 1);
+            servo_speed_set(chassis_move.ch2_cal, 1);
         }
         if (chassis_move_mode->chassis_RC->rc.ch[2] < 0)
         {
             HAL_GPIO_WritePin(PUSH_YAW_GPIO_Port, PUSH_YAW_Pin, GPIO_PIN_RESET);
-            servo_pwm_set(100, 1);
+            servo_speed_set(chassis_move.ch2_cal/2, 1);
         }
 
 
@@ -67,15 +67,16 @@ void chassis_set_control(chassis_move_t *chassis_move_mode)
         {
             //控制电机正反转
             HAL_GPIO_WritePin(PUSH_PITCH_GPIO_Port, PUSH_PITCH_Pin, GPIO_PIN_SET);
-            servo_pwm_set(100, 2);
+            servo_speed_set(chassis_move.ch3_cal, 2);
         }
         if (chassis_move_mode->chassis_RC->rc.ch[3] < -300)
         {
             HAL_GPIO_WritePin(PUSH_PITCH_GPIO_Port, PUSH_PITCH_Pin, GPIO_PIN_RESET);
-            servo_pwm_set(100, 2);
+            servo_speed_set(chassis_move.ch3_cal/2, 2);
         }
     }
     
 }
+
 
 

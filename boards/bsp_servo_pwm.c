@@ -3,7 +3,7 @@
 
 int8_t cnt;
 
-void servo_pwm_set(uint16_t speed, uint8_t i)
+void servo_speed_set(uint16_t speed, uint8_t i)
 {
     switch(i)
     {

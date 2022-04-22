@@ -66,7 +66,6 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
   case CAN_LEFT_3508_M1_ID:
   case CAN_LEFT_3508_M2_ID:
   case CAN_LEFT_3508_M3_ID:
-  case CAN_TRIGGER_MOTOR_ID:
   case CAN_RIGHT_3508_M4_ID:
   case CAN_RIGHT_3508_M5_ID:
   case CAN_RIGHT_3508_M6_ID:

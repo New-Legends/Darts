@@ -134,6 +134,7 @@ void shoot_init(void)
     shoot_control.fric_motor[R3].fric_motor_measure = shoot_control.motor_state[6];
     //初始化PID
     PID_init(&shoot_control.trigger_motor_pid, PID_POSITION, Trigger_speed_pid, TRIGGER_READY_PID_MAX_OUT, TRIGGER_READY_PID_MAX_IOUT);
+    PID_init(&shoot_control.trigger_motor_pid, PID_POSITION, Trigger_speed_pid, TRIGGER_READY_PID_MAX_OUT, TRIGGER_READY_PID_MAX_IOUT);
     PID_init(&shoot_control.fric_speed_pid[L1], PID_POSITION, Fric_speed_pid, FRIC_PID_MAX_OUT, FRIC_PID_MAX_IOUT);
     PID_init(&shoot_control.fric_speed_pid[R1], PID_POSITION, Fric_speed_pid, FRIC_PID_MAX_OUT, FRIC_PID_MAX_IOUT);
     PID_init(&shoot_control.fric_speed_pid[L2], PID_POSITION, Fric_speed_pid, FRIC_PID_MAX_OUT, FRIC_PID_MAX_IOUT);
