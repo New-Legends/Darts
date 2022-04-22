@@ -34,13 +34,13 @@ typedef enum
   CAN_LEFT_3508_M1_ID = 0x201,
   CAN_LEFT_3508_M2_ID = 0x202,
   CAN_LEFT_3508_M3_ID = 0x203,
-  CAN_TRIGGER_2006_ID = 0x204,
+  CAN_TRIGGER_MOTOR_ID = 0x204,
   //�ҷ���������ID
   CAN_RIGHT_SHOOT_ALL_ID = 0x1FF,
   CAN_RIGHT_3508_M4_ID = 0x205,
   CAN_RIGHT_3508_M5_ID = 0x206,
   CAN_RIGHT_3508_M6_ID = 0x207,
-  CAN_SPIN_3508_ID = 0x208,
+  CAN_PULL_2006_ID = 0x208,
 } can_msg_id_e;
 
 //rm motor data
@@ -67,6 +67,7 @@ extern void CAN_cmd_left_shoot(int16_t motor1, int16_t motor2, int16_t motor3, i
 extern void CAN_cmd_right_shoot(int16_t motor1, int16_t motor2, int16_t motor3, int16_t motor4);
 
 extern const motor_measure_t *get_trigger_motor_measure_point(void);
+extern const motor_measure_t *get_pull_motor_measure_point(void);
 
 /**
   * @brief          ����Ħ���ֵ�� 3508�������ָ��

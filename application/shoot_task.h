@@ -64,10 +64,15 @@
 
 
 //拨盘电机rmp 变化成 旋转速度的比例
-#define MOTOR_RPM_TO_SPEED          0.00290888208665721596153948461415f 
-#define MOTOR_ECD_TO_ANGLE          0.000021305288720633905968306772076277f * SHOOT_TRIGGER_DIRECTION
-#define FULL_COUNT                  18
+#define MOTOR_RPM_TO_SPEED         0.000415809748903494517209f
+#define MOTOR_ECD_TO_ANGLE         0.000039940741761990380111011191762043f * SHOOT_TRIGGER_DIRECTION
+#define FULL_COUNT                 19
 
+
+//推弹电机rmp 变化成 旋转速度的比例
+#define PULL_MOTOR_RPM_TO_SPEED         0.00290888208665721596153948461415f
+#define PULL_MOTOR_ECD_TO_ANGLE         0.000021305288720633905968306772076277f * SHOOT_TRIGGER_DIRECTION
+#define PULL_FULL_COUNT                 18
 
 
 //拨弹速度
@@ -76,7 +81,13 @@
 #define READY_TRIGGER_SPEED         5.0f * SHOOT_TRIGGER_DIRECTION //5
 
 
-//卡单时间 以及反转时间
+//推弹速度
+#define PULL_SPEED               10.0f * SHOOT_TRIGGER_DIRECTION   //10
+#define CONTINUE_PULL_SPEED      15.0f * SHOOT_TRIGGER_DIRECTION  //15
+#define READY_PULL_SPEED         5.0f * SHOOT_TRIGGER_DIRECTION //5
+
+
+//拨弹卡弹时间 以及反转时间
 #define BLOCK_TRIGGER_SPEED         1.0f
 #define BLOCK_TIME                  700
 #define REVERSE_TIME                500
@@ -86,16 +97,30 @@
 #define PI_TEN                      0.314f
 
 
+
 //拨弹轮电机PID
-#define TRIGGER_ANGLE_PID_KP        1000.0f  //800
-#define TRIGGER_ANGLE_PID_KI        2.0f  //0.5
-#define TRIGGER_ANGLE_PID_KD        5.0f
+#define TRIGGER_ANGLE_PID_KP        8000.0f  //800
+#define TRIGGER_ANGLE_PID_KI        0.0f  //0.5
+#define TRIGGER_ANGLE_PID_KD        0.0f
 
 #define TRIGGER_BULLET_PID_MAX_OUT  10000.0f
 #define TRIGGER_BULLET_PID_MAX_IOUT 200.0f
 
 #define TRIGGER_READY_PID_MAX_OUT   10000.0f
 #define TRIGGER_READY_PID_MAX_IOUT  200.0f
+
+
+//推弹轮电机PID
+#define PULL_ANGLE_PID_KP        0.0f  //800
+#define PULL_ANGLE_PID_KI        0.0f  //0.5
+#define PULL_ANGLE_PID_KD        0.0f
+
+#define PULL_BULLET_PID_MAX_OUT  10000.0f
+#define PULL_BULLET_PID_MAX_IOUT 200.0f
+
+#define PULL_READY_PID_MAX_OUT   10000.0f
+#define PULL_READY_PID_MAX_IOUT  200.0f
+
 
 //摩擦轮电机rmp 变化成 旋转速度的比例
 #define FRIC_RPM_TO_SPEED           0.000415809748903494517209f*5
@@ -115,6 +140,8 @@
 #define FRIC_REQUIRE_SPEED_RMP 500.0f
 
 #define SHOOT_HEAT_REMAIN_VALUE     80
+
+
 //拨盘格数
 #define TRIGGER_GRID_NUM 4     
 #define TRIGGER_ONCE 2*PI/TRIGGER_GRID_NUM
@@ -164,14 +191,24 @@ typedef struct
 
     //拨弹电机数据
     const motor_measure_t *trigger_motor_measure;
-    pid_type_def trigger_motor_pid;
+    pid_type_def trigger_motor_pid;    
+    fp32 trigger_speed;
     fp32 trigger_speed_set;
-    fp32 speed;
-    fp32 speed_set;
-    fp32 angle;
-    fp32 set_angle;
-    int16_t given_current;
-    int8_t ecd_count;
+    fp32 trigger_angle;
+    fp32 trigger_set_angle;
+    int16_t trigger_given_current;
+    int8_t trigger_ecd_count;
+
+    //推弹电机数据
+    const motor_measure_t *pull_motor_measure;
+    pid_type_def pull_motor_pid;
+    fp32 pull_speed;
+    fp32 pull_speed_set;
+    fp32 pull_angle;
+    fp32 pull_set_angle;
+    int16_t pull_given_current;
+    int8_t pull_ecd_count;
+
 
     //摩擦轮电机数据
     fric_motor_t fric_motor[6]; 
@@ -195,7 +232,7 @@ typedef struct
     uint16_t reverse_time;
     bool_t move_flag;
 
-    const motor_measure_t *motor_state[7];
+    const motor_measure_t *motor_state[8];
  
 } shoot_control_t;
 

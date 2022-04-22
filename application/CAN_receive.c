@@ -3,7 +3,7 @@
   * @file       can_receive.c/h
   * @brief      there is CAN interrupt function  to receive motor data,
   *             and CAN send function to send motor current to control motor.
-  *             ÕâÀïÊÇCANÖĞ¶Ï½ÓÊÕº¯Êı£¬½ÓÊÕµç»úÊı¾İ,CAN·¢ËÍº¯Êı·¢ËÍµç»úµçÁ÷¿ØÖÆµç»ú.
+  *             é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·CANé”Ÿå«æ–­æ–¤æ‹·é”Ÿç§¸çŒ´æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿç§¸ç¢‰æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿï¿½,CANé”Ÿæ–¤æ‹·é”Ÿé…µçŒ´æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿé…µç¢‰æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é¢‘é”Ÿæ–¤æ‹·.
   * @note       
   * @history
   *  Version    Date            Author          Modification
@@ -38,10 +38,10 @@ extern CAN_HandleTypeDef hcan2;
   }
 
 /*
-µç»úÊı¾İ, 
+é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿï¿½, 
 
 */
-static motor_measure_t motor_shoot[7];
+static motor_measure_t motor_shoot[8];
 
 static CAN_TxHeaderTypeDef shoot_left_tx_message;
 static uint8_t shoot_left_can_send_data[8];
@@ -50,8 +50,8 @@ static CAN_TxHeaderTypeDef shoot_right_tx_message;
 static uint8_t shoot_right_can_send_data[8];
 
 /**
-  * @brief          hal¿âCAN»Øµ÷º¯Êı,½ÓÊÕµç»úÊı¾İ
-  * @param[in]      hcan:CAN¾ä±úÖ¸Õë
+  * @brief          halé”Ÿæ–¤æ‹·CANé”Ÿæˆªç¢‰æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·,é”Ÿæ–¤æ‹·é”Ÿç§¸ç¢‰æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿï¿½
+  * @param[in]      hcan:CANé”Ÿæ–¤æ‹·é”Ÿè¡—é©æ‹·é”Ÿï¿½
   * @retval         none
   */
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
@@ -66,9 +66,11 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
   case CAN_LEFT_3508_M1_ID:
   case CAN_LEFT_3508_M2_ID:
   case CAN_LEFT_3508_M3_ID:
+  case CAN_TRIGGER_MOTOR_ID:
   case CAN_RIGHT_3508_M4_ID:
   case CAN_RIGHT_3508_M5_ID:
   case CAN_RIGHT_3508_M6_ID:
+  case CAN_PULL_2006_ID:
   {
 
     static uint8_t i = 0;
@@ -85,11 +87,11 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 }
 
 /**
-  * @brief          ·¢ËÍµç»ú¿ØÖÆµçÁ÷(0x205,0x206,0x207,0x208)
-  * @param[in]      left_fric: (0x205) 3508µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-16384,16384]
-  * @param[in]      right_fric: (0x206) 3508µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-16384,16384]
-  * @param[in]      trigger: (0x207) 2006µç»ú¿ØÖÆµçÁ÷, ·¶Î§ [-10000,10000]
-  * @param[in]      ±£Áô: (0x208) ±£Áô£¬µç»ú¿ØÖÆµçÁ÷
+  * @brief          é”Ÿæ–¤æ‹·é”Ÿé…µç¢‰æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é¢‘é”Ÿæ–¤æ‹·é”Ÿï¿½(0x205,0x206,0x207,0x208)
+  * @param[in]      left_fric: (0x205) 3508é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é¢‘é”Ÿæ–¤æ‹·é”Ÿï¿½, é”Ÿæ–¤æ‹·å›´ [-16384,16384]
+  * @param[in]      right_fric: (0x206) 3508é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é¢‘é”Ÿæ–¤æ‹·é”Ÿï¿½, é”Ÿæ–¤æ‹·å›´ [-16384,16384]
+  * @param[in]      trigger: (0x207) 2006é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é¢‘é”Ÿæ–¤æ‹·é”Ÿï¿½, é”Ÿæ–¤æ‹·å›´ [-10000,10000]
+  * @param[in]      é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·: (0x208) é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é¢‘é”Ÿæ–¤æ‹·é”Ÿï¿½
   * @retval         none
   */
 void CAN_cmd_left_shoot(int16_t motor1, int16_t motor2, int16_t motor3, int16_t trigger)
@@ -111,7 +113,7 @@ void CAN_cmd_left_shoot(int16_t motor1, int16_t motor2, int16_t motor3, int16_t 
   HAL_CAN_AddTxMessage(&SHOOT_CAN, &shoot_left_tx_message, shoot_left_can_send_data, &send_mail_box);
 }
 
-void CAN_cmd_right_shoot(int16_t motor1, int16_t motor2, int16_t motor3, int16_t motor4)
+void CAN_cmd_right_shoot(int16_t motor1, int16_t motor2, int16_t motor3, int16_t pull)
 {
   uint32_t send_mail_box;
   shoot_right_tx_message.StdId = CAN_RIGHT_SHOOT_ALL_ID;
@@ -124,16 +126,16 @@ void CAN_cmd_right_shoot(int16_t motor1, int16_t motor2, int16_t motor3, int16_t
   shoot_right_can_send_data[3] = motor2;
   shoot_right_can_send_data[4] = (motor3 >> 8);
   shoot_right_can_send_data[5] = motor3;
-  shoot_right_can_send_data[6] = (motor4 >> 8);
-  shoot_right_can_send_data[7] = motor4;
+  shoot_right_can_send_data[6] = (pull >> 8);
+  shoot_right_can_send_data[7] = pull;
 
   HAL_CAN_AddTxMessage(&SHOOT_CAN, &shoot_right_tx_message, shoot_right_can_send_data, &send_mail_box);
 }
 
 /**
-  * @brief          ·µ»Ø²¦µ¯µç»ú 2006µç»úÊı¾İÖ¸Õë
+  * @brief          é”Ÿæ–¤æ‹·é”Ÿæˆªè¯§æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿï¿½ 3508é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿè¡—é©æ‹·é”Ÿï¿½
   * @param[in]      none
-  * @retval         µç»úÊı¾İÖ¸Õë
+  * @retval         é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿè¡—é©æ‹·é”Ÿï¿½
   */
 const motor_measure_t *get_trigger_motor_measure_point(void)
 {
@@ -141,9 +143,19 @@ const motor_measure_t *get_trigger_motor_measure_point(void)
 }
 
 /**
-  * @brief          ·µ»Ø×óÄ¦²ÁÂÖ 3508µç»úÊı¾İÖ¸Õë
-  * @param[in]      i: µç»ú±àºÅ,·¶Î§[0,3]
-  * @retval         µç»úÊı¾İÖ¸Õë
+  * @brief          2006æ¨å¼¹ç”µæœºæ•°æ®åé¦ˆ
+  * @param[in]      none
+  * @retval         é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿè¡—é©æ‹·é”Ÿï¿½
+  */
+const motor_measure_t *get_pull_motor_measure_point(void)
+{
+  return &motor_shoot[8];
+}
+
+/**
+  * @brief          é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·æ‘©é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹· 3508é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿè¡—é©æ‹·é”Ÿï¿½
+  * @param[in]      i: é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·,é”Ÿæ–¤æ‹·å›´[0,3]
+  * @retval         é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿè¡—é©æ‹·é”Ÿï¿½
   */
 const motor_measure_t *get_left_fric_motor_measure_point(uint8_t i)
 {
@@ -151,9 +163,9 @@ const motor_measure_t *get_left_fric_motor_measure_point(uint8_t i)
 }
 
 /**
-  * @brief          ·µ»ØÓÒÄ¦²ÁÂÖÊı¾İ
-  * @param[in]      i: µç»ú±àºÅ,·¶Î§[4,6]
-  * @retval         µç»úÊı¾İÖ¸Õë
+  * @brief          é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·æ‘©é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
+  * @param[in]      i: é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·,é”Ÿæ–¤æ‹·å›´[4,6]
+  * @retval         é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿè¡—é©æ‹·é”Ÿï¿½
   */
 const motor_measure_t *get_right_fric_motor_measure_point(uint8_t i)
 {
