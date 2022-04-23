@@ -99,7 +99,7 @@
 
 
 //拨弹轮电机PID
-#define TRIGGER_ANGLE_PID_KP        800.0f  //800
+#define TRIGGER_ANGLE_PID_KP        5900.0f  //800
 #define TRIGGER_ANGLE_PID_KI        0.0f  //0.5
 #define TRIGGER_ANGLE_PID_KD        0.0f
 
@@ -143,7 +143,7 @@
 
 
 //拨盘格数
-#define TRIGGER_GRID_NUM 4     
+#define TRIGGER_GRID_NUM 8    
 #define TRIGGER_ONCE 2*PI/TRIGGER_GRID_NUM
 
 
