@@ -21,6 +21,7 @@
 #include "cmsis_os.h"
 
 #include "bsp_laser.h"
+#include "bsp_servo_pwm.h"
 #include "bsp_fric.h"
 #include "arm_math.h"
 #include "user_lib.h"
@@ -41,9 +42,8 @@
 //通过读取裁判数据,直接修改射速和射频等级
 //射速等级  摩擦电机
 fp32 shoot_fric_grade[4] = {0, 15 * FRIC_REFEREE_PARA, 18 * FRIC_REFEREE_PARA, 30 * FRIC_REFEREE_PARA};
-
-//射频等级 拨弹电机
 fp32 shoot_grigger_grade[6] = {0, 5.0f * GRIGGER_SPEED_TO_RADIO, 10.0f * GRIGGER_SPEED_TO_RADIO, 15.0f * GRIGGER_SPEED_TO_RADIO, 28.0f * GRIGGER_SPEED_TO_RADIO, 40.0f * GRIGGER_SPEED_TO_RADIO};
+
 
 /**
   * @brief          射击状态机设置，遥控器上拨一次开启，再上拨关闭，下拨1次发射1颗，一直处在下，则持续发射，用于3min准备时间清理子弹
@@ -291,9 +291,13 @@ void shoot_set_control(void)
     }
     else if (shoot_control.shoot_mode == SHOOT_BULLET)
     {
+        //3508电机控制模式
         shoot_control.trigger_motor_pid.max_out = TRIGGER_BULLET_PID_MAX_OUT;
         shoot_control.trigger_motor_pid.max_iout = TRIGGER_BULLET_PID_MAX_IOUT;
         shoot_bullet_control();
+        //步进电机控制模式
+        HAL_GPIO_WritePin(PUSH_TRIGGER_GPIO_Port, TRIGGER_Pin, GPIO_PIN_RESET);
+        servo_speed_set(50, 3);
     }
     else if (shoot_control.shoot_mode == SHOOT_CONTINUE_BULLET)
     {

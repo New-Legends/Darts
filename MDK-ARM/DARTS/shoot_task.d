@@ -67,6 +67,7 @@ darts\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 darts\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 darts\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 darts\shoot_task.o: ../bsp/boards/bsp_laser.h
+darts\shoot_task.o: ../bsp/boards/bsp_servo_pwm.h
 darts\shoot_task.o: ../bsp/boards/bsp_fric.h
 darts\shoot_task.o: ../components/algorithm/Include/arm_math.h
 darts\shoot_task.o: ../Drivers/CMSIS/Include/core_cm4.h
