@@ -3,7 +3,7 @@ darts\usb_device.o: ../Inc/usb_device.h
 darts\usb_device.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 darts\usb_device.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 darts\usb_device.o: ../Drivers/CMSIS/Include/core_cm4.h
-darts\usb_device.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
+darts\usb_device.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 darts\usb_device.o: ../Drivers/CMSIS/Include/cmsis_version.h
 darts\usb_device.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 darts\usb_device.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -15,7 +15,7 @@ darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h
 darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 darts\usb_device.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-darts\usb_device.o: D:\keil\ARM\ARMCC\Bin\..\include\stddef.h
+darts\usb_device.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h
 darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
@@ -30,8 +30,6 @@ darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_crc.h
 darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
-darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h
-darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h
 darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rng.h
@@ -46,9 +44,9 @@ darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
 darts\usb_device.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
 darts\usb_device.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 darts\usb_device.o: ../Inc/usbd_conf.h
-darts\usb_device.o: D:\keil\ARM\ARMCC\Bin\..\include\stdio.h
-darts\usb_device.o: D:\keil\ARM\ARMCC\Bin\..\include\stdlib.h
-darts\usb_device.o: D:\keil\ARM\ARMCC\Bin\..\include\string.h
+darts\usb_device.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+darts\usb_device.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+darts\usb_device.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 darts\usb_device.o: ../Inc/main.h
 darts\usb_device.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
 darts\usb_device.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h

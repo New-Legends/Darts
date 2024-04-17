@@ -8,7 +8,7 @@
 typedef struct
 {
   const RC_ctrl_t *chassis_RC;               //底盘使用的遥控器指针, the point to remote control
-  int16_t ch2_cal;
+  int16_t ch0_cal;
   int16_t ch3_cal;
 } chassis_move_t;
 

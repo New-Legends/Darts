@@ -25,7 +25,6 @@
 #include "can.h"
 #include "crc.h"
 #include "dma.h"
-#include "i2c.h"
 #include "rng.h"
 #include "rtc.h"
 #include "spi.h"
@@ -109,7 +108,6 @@ int main(void)
   MX_ADC3_Init();
   MX_CAN1_Init();
   MX_CAN2_Init();
-  MX_I2C1_Init();
   MX_SPI1_Init();
   MX_TIM4_Init();
   MX_TIM5_Init();
@@ -117,13 +115,10 @@ int main(void)
   MX_TIM8_Init();
   MX_CRC_Init();
   MX_RNG_Init();
-  MX_I2C2_Init();
-  MX_I2C3_Init();
   MX_RTC_Init();
   MX_TIM1_Init();
   MX_TIM3_Init();
   MX_TIM10_Init();
-  MX_USART1_UART_Init();
   MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim1);
@@ -137,9 +132,9 @@ int main(void)
   HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_3);
 
   can_filter_init();
+  can_receive_init();
   delay_init();
   remote_control_init();
-  usart1_tx_dma_init();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */

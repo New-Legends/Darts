@@ -1,8 +1,8 @@
 darts\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/list.c
-darts\list.o: D:\keil\ARM\ARMCC\Bin\..\include\stdlib.h
+darts\list.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 darts\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-darts\list.o: D:\keil\ARM\ARMCC\Bin\..\include\stddef.h
-darts\list.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
+darts\list.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+darts\list.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 darts\list.o: ../Inc/FreeRTOSConfig.h
 darts\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 darts\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

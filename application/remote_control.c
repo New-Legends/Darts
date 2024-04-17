@@ -200,7 +200,7 @@ void USART3_IRQHandler(void)
             {
                 sbus_to_rc(sbus_rx_buf[0], &rc_ctrl);
                 //��¼���ݽ���ʱ��
-                sbus_to_usart1(sbus_rx_buf[0]);
+            
             }
         }
         else
@@ -231,7 +231,7 @@ void USART3_IRQHandler(void)
                 //����ң��������
                 sbus_to_rc(sbus_rx_buf[1], &rc_ctrl);
                 //��¼���ݽ���ʱ��
-                sbus_to_usart1(sbus_rx_buf[1]);
+          
             }
         }
     }
@@ -309,16 +309,5 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_ctrl_t *rc_ctrl)
   * @param[in]      sbus: sbus����, 18�ֽ�
   * @retval         none
   */
-void sbus_to_usart1(uint8_t *sbus)
-{
-    static uint8_t usart_tx_buf[20];
-    static uint8_t i =0;
-    usart_tx_buf[0] = 0xA6;
-    memcpy(usart_tx_buf + 1, sbus, 18);
-    for(i = 0, usart_tx_buf[19] = 0; i < 19; i++)
-    {
-        usart_tx_buf[19] += usart_tx_buf[i];
-    }
-    usart1_tx_dma_enable(usart_tx_buf, 20);
-}
+
 

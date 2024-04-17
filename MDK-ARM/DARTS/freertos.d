@@ -1,7 +1,7 @@
 darts\freertos.o: ../Src/freertos.c
 darts\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-darts\freertos.o: D:\keil\ARM\ARMCC\Bin\..\include\stddef.h
-darts\freertos.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
+darts\freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+darts\freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 darts\freertos.o: ../Inc/FreeRTOSConfig.h
 darts\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 darts\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
@@ -39,8 +39,6 @@ darts\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_crc.h
 darts\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 darts\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 darts\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
-darts\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h
-darts\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h
 darts\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 darts\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 darts\freertos.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rng.h

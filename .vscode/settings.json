@@ -2,6 +2,13 @@
     "files.associations": {
         "usb_device.h": "c",
         "main.h": "c",
-        "can_receive.h": "c"
+        "can_receive.h": "c",
+        "bsp_servo_pwm.h": "c",
+        "chassis_task.h": "c",
+        "crc8_crc16.h": "c",
+        "referee.h": "c",
+        "compare": "c",
+        "limits": "c",
+        "new": "c"
     }
 }

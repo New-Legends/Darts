@@ -3,8 +3,8 @@ darts\can_receive.o: ..\application\CAN_receive.h
 darts\can_receive.o: ..\application\struct_typedef.h
 darts\can_receive.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 darts\can_receive.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-darts\can_receive.o: D:\keil\ARM\ARMCC\Bin\..\include\stddef.h
-darts\can_receive.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
+darts\can_receive.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+darts\can_receive.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 darts\can_receive.o: ../Inc/FreeRTOSConfig.h
 darts\can_receive.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 darts\can_receive.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
@@ -46,8 +46,6 @@ darts\can_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_crc.h
 darts\can_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 darts\can_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 darts\can_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
-darts\can_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h
-darts\can_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h
 darts\can_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 darts\can_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 darts\can_receive.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rng.h
